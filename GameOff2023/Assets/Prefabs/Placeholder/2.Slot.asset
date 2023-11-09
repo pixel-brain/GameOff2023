@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d94134dde0f62a4595d4a0a70ce660b, type: 3}
+  m_Name: 2.Slot
+  m_EditorClassIdentifier: 
+  spawnPrefab: {fileID: 7344314623630083427, guid: 875cd2ece5b072a4fa1ecc3e6a323f4f, type: 3}
+  backgroundSprite: {fileID: 0}
+  mainColor:
+    serializedVersion: 2
+    rgba: 4281216637
+  remainingTextColor:
+    serializedVersion: 2
+    rgba: 4279315185
+  remainingBackgroundColor:
+    serializedVersion: 2
+    rgba: 4282598211
