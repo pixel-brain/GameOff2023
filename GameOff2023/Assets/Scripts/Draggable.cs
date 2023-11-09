@@ -3,56 +3,60 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Draggable : MonoBehaviour
+public abstract class Draggable : MonoBehaviour
 {
-    private Canvas canvas;
-    private RectTransform draggableArea, rectTransform;
-    private Vector3 clickOffset;
+    protected Canvas canvas;
+    protected RectTransform rectTransform;
+    protected Vector3 clickOffset;
 
-    private void Start()
+    protected virtual void Start()
     {
-        canvas = transform.root.GetComponent<Canvas>();
-        draggableArea = transform.parent.GetComponent<RectTransform>();
+        canvas = GameObject.FindWithTag("GameBoardCanvas").GetComponent<Canvas>();
         rectTransform = GetComponent<RectTransform>();
     }
 
-    public void OnPointerDown(BaseEventData eventData)
+    public virtual void OnPointerDown(BaseEventData eventData)
     {
         Vector3 pointerPosition = GetPointerPosition(eventData);
-
-        transform.SetAsLastSibling();
         clickOffset = transform.position - pointerPosition;
     }
 
-    public void OnDrag(BaseEventData eventData)
+    public virtual void OnDrag(BaseEventData eventData)
     {
         Vector3 pointerPosition = GetPointerPosition(eventData);
-
         Vector3 dragPosition = pointerPosition + clickOffset;
-
         transform.position = dragPosition;
-        RestrictToArea(draggableArea);
     }
 
-    public void OnDrop(BaseEventData eventData)
+    public virtual void OnPointerUp(BaseEventData eventData)
     {
 
     }
 
-    private void RestrictToArea(RectTransform areaRectTransform)
+    protected void RestrictToArea(RectTransform areaRectTransform)
     {
-        Vector2 bounds = new Vector2(
-            (Mathf.Abs(areaRectTransform.sizeDelta.x) - rectTransform.sizeDelta.x) * 0.5f,
-            (Mathf.Abs(areaRectTransform.sizeDelta.y) - rectTransform.sizeDelta.y) * 0.5f
-            );
-
+        Vector2 bounds = Bounds(areaRectTransform);
         rectTransform.localPosition = new Vector3(
             Mathf.Clamp(rectTransform.localPosition.x, -bounds.x, bounds.x), 
             Mathf.Clamp(rectTransform.localPosition.y, -bounds.y, bounds.y)
             );
     }
 
-    private Vector3 GetPointerPosition(BaseEventData eventData)
+    protected bool IsInArea(RectTransform areaRectTransform)
+    {
+        Vector2 bounds = Bounds(areaRectTransform);
+        return (Mathf.Abs(rectTransform.localPosition.x) < bounds.x && Mathf.Abs(rectTransform.localPosition.y) < bounds.y);
+    }
+
+    protected Vector2 Bounds(RectTransform areaRectTransform)
+    {
+        return new Vector2(
+            (Mathf.Abs(areaRectTransform.sizeDelta.x) - rectTransform.sizeDelta.x) * 0.5f,
+            (Mathf.Abs(areaRectTransform.sizeDelta.y) - rectTransform.sizeDelta.y) * 0.5f
+            );
+    }
+
+    protected Vector3 GetPointerPosition(BaseEventData eventData)
     {
         PointerEventData pointerData = (PointerEventData)eventData;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
