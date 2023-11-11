@@ -54,7 +54,6 @@ public class NodeScript : MonoBehaviour
         _noteReceivedEvent.Invoke(this, note, overflows);
         if(overflows)
         {
-            //TO-DO add behaviour for when too many notes come in
             Debug.LogWarning("This node received too many notes.");
             return;
         }
