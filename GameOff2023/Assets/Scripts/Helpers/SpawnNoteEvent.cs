@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class SpawnNoteEvent : MonoBehaviour
 {
+
     public void CreateNote()
     {
         Debug.Log("New Note");

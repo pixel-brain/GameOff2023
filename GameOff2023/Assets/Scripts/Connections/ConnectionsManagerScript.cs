@@ -40,6 +40,19 @@ public class ConnectionsManagerScript : MonoBehaviour
 		_lineRenderer = transform.GetComponent<LineRenderer>();
 	}
 
+	private void Start()
+	{
+		FauxBeatManagerScript.Instance.AttachEnterPlayEvent(CreatePaths);
+	}
+
+	private void CreatePaths()
+	{
+		foreach (PathInfo path in _paths)
+		{
+			path.OutputTransform.GetComponent<OutputPointScript>().CreatePath(path.InputTransform);
+		}
+	}
+
 	private void Update()
 	{
 		if(!_lineRenderer)
@@ -47,6 +60,10 @@ public class ConnectionsManagerScript : MonoBehaviour
             Debug.LogError("A Line Renderer is required for this object to function: " + gameObject.name);
             return;
         }
+		if(FauxBeatManagerScript.Instance.CurrentGameState != GameState.Edit)
+		{
+			return;
+		}
 		if(_startPoint)
 		{
 			Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
