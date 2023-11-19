@@ -5,12 +5,25 @@ using UnityEngine;
 
 public class SpawnNoteEvent : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject note;
+    [SerializeField]
+    private int _delay = 2;
 
-    public void CreateNote()
+    private int _timer = 0;
+
+    public void CreateNote(NodeScript node)
     {
-        Debug.Log("New Note");
+        _timer++;
+        if(_timer < _delay) return;
+        Transform[] outputs = node.GetOutputs();
+        foreach (Transform output in outputs)
+        {
+            output.GetComponent<OutputPointScript>().SpawnNote(note);
+        }
+        _timer = 0;
     }
-    public void EditNote(NodeScript factory, List<GameObject> notes)
+    public void EditNote(NodeScript factory)
     {
         Debug.Log("Note value changed by: " + ((EditableNodeScript)factory).GetSliderValue());
     }

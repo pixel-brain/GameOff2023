@@ -4,50 +4,58 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+public struct PathTargetInfo
+{
+    public List<Vector2> _path;
+    public InputPointScript _target;
+}
+
 public class OutputPointScript : MonoBehaviour
 {
-    private List<List<Vector2>> _paths = new();
+    private List<PathTargetInfo> _paths = new();
+
+    [SerializeField]
+    private LayerMask _notesMask;
+
+    private int _currentPath = 0;
+
     private void Start()
     {
         FauxBeatManagerScript.Instance.AttachEnterEditEvent(ClearConnections);
     }
 
-    [SerializeField]
-    private GameObject note;
     //Testing
-    private void Update()
+    public void SpawnNote(GameObject note)
     {
-        if(Input.GetKeyDown(KeyCode.Alpha3))
+        Collider2D[] results = Physics2D.OverlapCircleAll(transform.position, 0.2f, _notesMask);
+        foreach (Collider2D result in results)
         {
-            foreach (List<Vector2> path in _paths)
-            {
-                Instantiate(note, transform.position,Quaternion.identity).GetComponent<NoteScript>().Initialize(path);
-            }
+            if(result.GetComponent<NoteScript>().WillBlock(gameObject)) return;
         }
+
+        Instantiate(note, transform.position,Quaternion.identity).GetComponent<NoteScript>().Initialize(_paths[_currentPath], gameObject);
+        _currentPath = _currentPath + 1 < _paths.Count ? _currentPath + 1 : 0;
     }
 
     public void CreatePath(Transform endPoint)
     {
-        List<Vector2> newPath = new();
+        PathTargetInfo newPath;
+
+        newPath._path = new();
 
         Vector2 finalPosition = endPoint.position;
         Vector2 startPosition = transform.position;
         Vector2 currentPosition = startPosition;
         do
         {
-            newPath.Add(currentPosition);
+            newPath._path.Add(currentPosition);
             currentPosition = GetNextPoint(startPosition, currentPosition, finalPosition);
         }while(Vector2.Distance(currentPosition, finalPosition) > 0.5f);
-        newPath.Add(finalPosition);
-
+        newPath._path.Add(finalPosition);
+        newPath._target = endPoint.GetComponent<InputPointScript>();
         _paths.Add(newPath);
     }
-/*
-_pathInfo.OutputTransform.position.x, _pathInfo.OutputTransform.position.y
-_pathInfo.OutputTransform.position.x, (float)Math.Round(_pathInfo.InputTransform.position.y - ((_pathInfo.InputTransform.position.y - _pathInfo.OutputTransform.position.y) / 2))
-_pathInfo.InputTransform.position.x, (float)Math.Round(_pathInfo.InputTransform.position.y - ((_pathInfo.InputTransform.position.y - _pathInfo.OutputTransform.position.y) / 2))
-_pathInfo.InputTransform.position.x, _pathInfo.InputTransform.position.y
-*/
+
     private Vector2 GetNextPoint(Vector2 start, Vector2 current, Vector2 target)
     {
         if(start.y < target.y)
@@ -86,11 +94,6 @@ _pathInfo.InputTransform.position.x, _pathInfo.InputTransform.position.y
                 return new Vector2(current.x, current.y - 1);
             }
         }
-    }
-
-    public List<List<Vector2>> GetPaths()
-    {
-        return _paths;
     }
 
     private void ClearConnections()
