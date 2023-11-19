@@ -32,7 +32,7 @@ public class OutputPointScript : MonoBehaviour
         {
             if(result.GetComponent<NoteScript>().WillBlock(gameObject)) return;
         }
-
+        if(_paths.Count <= 0) return;
         Instantiate(note, transform.position,Quaternion.identity).GetComponent<NoteScript>().Initialize(_paths[_currentPath], gameObject);
         _currentPath = _currentPath + 1 < _paths.Count ? _currentPath + 1 : 0;
     }

@@ -317,6 +317,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaseNode (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 7793757747045742402, guid: 46ae3196397f4794b95444330925bcbc, type: 3}
+      propertyPath: _delay
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8225225302437065387, guid: 46ae3196397f4794b95444330925bcbc, type: 3}
       propertyPath: _outputs.Array.size
       value: 1
