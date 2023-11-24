@@ -22,18 +22,18 @@ public class NodeScript : MonoBehaviour
     [Space]
     [SerializeField]
     //TO-DO Replace transform with the proper reference.
-    private Transform[] _outputs;
+    protected Transform[] _outputs;
     [SerializeField]
-    private Transform[] _inputs;
+    protected Transform[] _inputs;
 
-    private void Start()
+    protected virtual void Start()
     {
         //TO-DO Replace the Faux manager with the real one.
         FauxBeatManagerScript.Instance.AttachBeatEvent(Beat);
     }
 
     //The Beat function is attached to the Beat Manager on start and is called every Beat
-    private void Beat()
+    protected virtual void Beat()
     {
         _beatEvent.Invoke(this);
     }
