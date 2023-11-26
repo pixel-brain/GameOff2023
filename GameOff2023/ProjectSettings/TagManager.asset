@@ -6,6 +6,9 @@ TagManager:
   tags:
   - NodeArea
   - GameBoardCanvas
+  - Output
+  - Input
+  - Note
   layers:
   - Default
   - TransparentFX
@@ -13,8 +16,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Input Output
+  - Notes
   - 
   - 
   - 
