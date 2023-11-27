@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{4e9f942a-a904-40a9-9232-9024ad90144c}">
+		<property name="assetPath">
+			<value>Level2_synth80.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>14.294124999999999</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{4671b83d-f186-434b-91a8-03be529d541c}</destination>
+		</relationship>
+	</object>
+</objects>

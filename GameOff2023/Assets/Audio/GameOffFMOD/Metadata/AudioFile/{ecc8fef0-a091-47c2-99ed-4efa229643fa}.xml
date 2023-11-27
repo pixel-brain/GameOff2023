@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{ecc8fef0-a091-47c2-99ed-4efa229643fa}">
+		<property name="assetPath">
+			<value>Level1_SynthHorn10.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>14.294124999999999</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{4671b83d-f186-434b-91a8-03be529d541c}</destination>
+		</relationship>
+	</object>
+</objects>

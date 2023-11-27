@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{34a38388-865f-4cae-aae7-43672a6709ef}">
+		<property name="assetPath">
+			<value>Level3pad.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>14.294124999999999</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{4671b83d-f186-434b-91a8-03be529d541c}</destination>
+		</relationship>
+	</object>
+</objects>
